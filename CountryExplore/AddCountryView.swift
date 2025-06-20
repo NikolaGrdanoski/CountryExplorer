@@ -6,10 +6,131 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseAuth
 
 struct AddCountryView: View {
+    @State private var isPresented = false
+    @State private var isPresenting = false
+    @State var alertDisplay = false
+    @State var name: String = ""
+    @State var language: String = ""
+    @State var capital: String = ""
+    @State var tld: String = ""
+    @State var flag: String = ""
+    @State var lt: String = ""
+    @State var ln: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        //Text("Hello, World!")
+        
+        NavigationLink(destination: ContentView(), isActive: self.$isPresenting, label: {
+            Button ("Sign Out") {
+                try? Auth.auth().signOut()
+                isPresenting = true
+            }
+        })
+        .navigationBarBackButtonHidden()
+        .buttonBorderShape(.roundedRectangle)
+        .buttonStyle(.bordered)
+        .background(.red)
+        .foregroundStyle(.white)
+        .clipShape(.rect(cornerRadius: 7))
+        .padding()
+        
+        Spacer()
+        
+        NavigationStack {
+            Text("New Country")
+                .foregroundStyle(.green)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .padding(.top, 10)
+            
+            Spacer()
+            
+            TextField("Name", text: $name)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            TextField("Language", text: $language)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            TextField("TLD", text: $tld)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            TextField("Capital", text: $capital)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            TextField("Flag", text: $flag)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            TextField("Lt", text: $lt)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            TextField("Ln", text: $ln)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .border(.blue)
+                .textFieldStyle(.roundedBorder)
+                .padding(1)
+            
+            /*NavigationLink("Select address", destination: AddressSelectMapView())
+             .foregroundStyle(.white)
+             .background(.purple)
+             .buttonBorderShape(.roundedRectangle)
+             .buttonStyle(.bordered)
+             .clipShape(.rect(cornerRadius: 9))
+             .padding()*/
+            
+            Spacer()
+            
+            NavigationLink(destination: CountryView(), isActive: self.$isPresented, label: {
+                Button("Add") {
+                    if (name.isEmpty || language.isEmpty || capital.isEmpty || tld.isEmpty || flag.isEmpty || lt.isEmpty || ln.isEmpty) {
+                        alertDisplay = true
+                    }
+                    else {
+                            let c : [String : String] = ["name" : name, "language" : language, "tld" : tld, "capital" : capital, "flag" : flag, "lt" : lt, "ln" : ln]
+                            
+                        Database.database().reference().child("country").child(name).setValue(c)
+                    }
+                }
+                .alert(isPresented: $alertDisplay) {
+                    Alert(title: Text("Alert"), message: Text("Invalid credentials"), dismissButton: .default(Text("Fine")))
+            }
+                })
+            .foregroundStyle(.white)
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.roundedRectangle)
+            .background(.green)
+            .clipShape(.rect(cornerRadius: 7))
+            .padding()
+            .navigationBarBackButtonHidden()
+        }
     }
 }
 
