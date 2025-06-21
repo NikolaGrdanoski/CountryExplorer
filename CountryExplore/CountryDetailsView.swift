@@ -18,6 +18,8 @@ struct CountryDetailsView: View {
     var selectedF: String
     var selectedL: String
     
+    @State private var isPresentWebView = false
+    
     var body: some View {
         //Text("Hello, World!")
         
@@ -71,6 +73,20 @@ struct CountryDetailsView: View {
             }
         }
         .padding()
+        
+        Button ("See details") {
+            isPresentWebView = true
+        }
+        .sheet(isPresented: $isPresentWebView) {
+                    NavigationStack {
+                        // 3
+                        WebView(url: URL(string: "https://en.wikipedia.org/wiki/\(selectedN)")!)
+
+                            .ignoresSafeArea()
+                            .navigationTitle(selectedN)
+                            .navigationBarTitleDisplayMode(.inline)
+                    }
+                }
         
         MapReader { reader in
             Map(position: $place, interactionModes: [.rotate, .zoom, .pan])
