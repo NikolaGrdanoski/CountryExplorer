@@ -50,7 +50,7 @@ struct CountryDetailsView: View {
                 
                 let f : [String : String] = ["name" : selectedN, "language" : selectedL, "tld" : selectedT, "capital" : selectedC, "continent" : pickedC, "flag" : selectedF, "lt" : selectedLt, "ln" : selectedLn, "poi" : selectedP, "email" : newMail]
                 
-                Database.database().reference().child("favorites").child(newMail).setValue(f)
+                Database.database().reference().child("favorites").childByAutoId().setValue(f)
             }
             .buttonStyle(.bordered)
             .buttonBorderShape(.roundedRectangle)

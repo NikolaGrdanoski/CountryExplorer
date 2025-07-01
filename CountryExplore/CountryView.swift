@@ -72,7 +72,22 @@ struct CountryView: View {
                                         NavigationLink{
                                             CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
                                         } label: {
-                                            Text(drzava.name)
+                                            //Text(drzava.name)
+                                            
+                                            HStack {
+                                                AsyncImage(url: URL(string: drzava.flag)) { image in
+                                                    image.resizable()
+                                                } placeholder: {
+                                                    Text("?")
+                                                }
+                                                .frame(width: 50, height: 30)
+                                                .padding(2)
+                                                
+                                                VStack {
+                                                    Text(drzava.name).font(.title)
+                                                    Text(drzava.poi).font(.subheadline)
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -116,7 +131,22 @@ struct CountryView: View {
                                         NavigationLink{
                                             CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
                                         } label: {
-                                            Text(drzava.name)
+                                            //Text(drzava.name)
+                                            
+                                            HStack {
+                                                AsyncImage(url: URL(string: drzava.flag)) { image in
+                                                    image.resizable()
+                                                } placeholder: {
+                                                    Text("?")
+                                                }
+                                                .frame(width: 50, height: 30)
+                                                .padding(2)
+                                                
+                                                VStack {
+                                                    Text(drzava.name).font(.title)
+                                                    Text(drzava.poi).font(.subheadline)
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -160,7 +190,22 @@ struct CountryView: View {
                                         NavigationLink{
                                             CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
                                         } label: {
-                                            Text(drzava.name)
+                                            //Text(drzava.name)
+                                            
+                                            HStack {
+                                                AsyncImage(url: URL(string: drzava.flag)) { image in
+                                                    image.resizable()
+                                                } placeholder: {
+                                                    Text("?")
+                                                }
+                                                .frame(width: 50, height: 30)
+                                                .padding(2)
+                                                
+                                                VStack {
+                                                    Text(drzava.name).font(.title)
+                                                    Text(drzava.poi).font(.subheadline)
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -204,7 +249,22 @@ struct CountryView: View {
                                         NavigationLink{
                                             CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
                                         } label: {
-                                            Text(drzava.name)
+                                            //Text(drzava.name)
+                                            
+                                            HStack {
+                                                AsyncImage(url: URL(string: drzava.flag)) { image in
+                                                    image.resizable()
+                                                } placeholder: {
+                                                    Text("?")
+                                                }
+                                                .frame(width: 50, height: 30)
+                                                .padding(2)
+                                                
+                                                VStack {
+                                                    Text(drzava.name).font(.title)
+                                                    Text(drzava.poi).font(.subheadline)
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -248,7 +308,22 @@ struct CountryView: View {
                                         NavigationLink{
                                             CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
                                         } label: {
-                                            Text(drzava.name)
+                                            //Text(drzava.name)
+                                            
+                                            HStack {
+                                                AsyncImage(url: URL(string: drzava.flag)) { image in
+                                                    image.resizable()
+                                                } placeholder: {
+                                                    Text("?")
+                                                }
+                                                .frame(width: 50, height: 30)
+                                                .padding(2)
+                                                
+                                                VStack {
+                                                    Text(drzava.name).font(.title)
+                                                    Text(drzava.poi).font(.subheadline)
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -292,7 +367,22 @@ struct CountryView: View {
                                         NavigationLink{
                                             CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
                                         } label: {
-                                            Text(drzava.name)
+                                            //Text(drzava.name)
+                                            
+                                            HStack {
+                                                AsyncImage(url: URL(string: drzava.flag)) { image in
+                                                    image.resizable()
+                                                } placeholder: {
+                                                    Text("?")
+                                                }
+                                                .frame(width: 50, height: 30)
+                                                .padding(2)
+                                                
+                                                VStack {
+                                                    Text(drzava.name).font(.title)
+                                                    Text(drzava.poi).font(.subheadline)
+                                                }
+                                            }
                                         }
                                     }
                                 }
