@@ -15,63 +15,332 @@ struct CountryView: View {
     @State var search = ""
     @State var name = ""
     @State var official = ""
+    @State var continent = ""
     @State var tld = ""
     @State var capital = ""
     @State var flags = ""
     
+    @State var selected = ""
+    
     @State var allList = allC(all: [])
     
     var body: some View {
-        //Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        //Text("Hello, World!")
         
-        NavigationLink(destination: ContentView(), isActive: self.$isPresenting, label: {
-            Button ("Sign Out") {
-                try? Auth.auth().signOut()
-                isPresenting = true
+        VStack {
+            HStack {
+                NavigationLink(destination: ContentView(), isActive: self.$isPresenting, label: {
+                    Button ("Sign Out") {
+                        try? Auth.auth().signOut()
+                        isPresenting = true
+                    }
+                })
+                .navigationBarBackButtonHidden()
+                .buttonBorderShape(.roundedRectangle)
+                .buttonStyle(.bordered)
+                .background(.red)
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: 7))
+                .padding()
+                
+                Spacer()
+                
+                NavigationLink("See Favorites", destination: <#T##() -> View#>)
             }
-        })
-        .navigationBarBackButtonHidden()
-        .buttonBorderShape(.roundedRectangle)
-        .buttonStyle(.bordered)
-        .background(.red)
-        .foregroundStyle(.white)
-        .clipShape(.rect(cornerRadius: 7))
-        .padding()
-        
-        Spacer()
-        
-        NavigationStack {
-            List {
-                ForEach(allList.all) { drzava in
-                    NavigationStack {
-                        /*Text(drzava.name)
-                        CountryDetailsView*/
-                        NavigationLink{
-                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language)
-                        } label: {
-                            Text(drzava.name)
+            
+            Spacer()
+            
+            NavigationStack {
+                List {
+                        Section("Africa") {
+                            ForEach(allList.all) { drzava in
+                                if drzava.continent == "Africa" {
+                                    NavigationStack {
+                                        /*Text(drzava.name)
+                                         CountryDetailsView*/
+                                        NavigationLink{
+                                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
+                                        } label: {
+                                            Text(drzava.name)
+                                        }
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                if Auth.auth().currentUser?.displayName == "Admin" {
+                                    let index = indexSet[indexSet.startIndex]
+                                    Database.database().reference().child("country").child(allList.all[index].name).removeValue()
+                                }
+                                else {
+                                    self.allList.all.removeAll()
+                                    
+                                    Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                                        (snapshot) in
+                                        let CK = snapshot.key as String
+                                        let key = String (CK)
+                                        if let Drzava = snapshot.value as? [String : String],
+                                           let name = Drzava["name"],
+                                           let language = Drzava["language"],
+                                           let capital = Drzava["capital"],
+                                           let continent = Drzava["continent"],
+                                           let tld = Drzava["tld"],
+                                           let flag = Drzava["flag"],
+                                           let lt = Drzava["lt"],
+                                           let ln = Drzava["ln"],
+                                           let poi = Drzava["poi"]
+                                        {
+                                            self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
+                                        }
+                                    }
+                                }
+                            }
+                            .listRowBackground(Color.red.opacity(0.5))
                         }
+                        Section("Asia") {
+                            ForEach(allList.all) { drzava in
+                                if drzava.continent == "Asia" {
+                                    NavigationStack {
+                                        /*Text(drzava.name)
+                                         CountryDetailsView*/
+                                        NavigationLink{
+                                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
+                                        } label: {
+                                            Text(drzava.name)
+                                        }
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                if Auth.auth().currentUser?.displayName == "Admin" {
+                                    let index = indexSet[indexSet.startIndex]
+                                    Database.database().reference().child("country").child(allList.all[index].name).removeValue()
+                                }
+                                else {
+                                    self.allList.all.removeAll()
+                                    
+                                    Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                                        (snapshot) in
+                                        let CK = snapshot.key as String
+                                        let key = String (CK)
+                                        if let Drzava = snapshot.value as? [String : String],
+                                           let name = Drzava["name"],
+                                           let language = Drzava["language"],
+                                           let capital = Drzava["capital"],
+                                           let continent = Drzava["continent"],
+                                           let tld = Drzava["tld"],
+                                           let flag = Drzava["flag"],
+                                           let lt = Drzava["lt"],
+                                           let ln = Drzava["ln"],
+                                           let poi = Drzava["poi"]
+                                        {
+                                            self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
+                                        }
+                                    }
+                                }
+                            }
+                            .listRowBackground(Color.yellow.opacity(0.5))
+                        }
+                        Section("Europe") {
+                            ForEach(allList.all) { drzava in
+                                if drzava.continent == "Europe" {
+                                    NavigationStack {
+                                        /*Text(drzava.name)
+                                         CountryDetailsView*/
+                                        NavigationLink{
+                                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
+                                        } label: {
+                                            Text(drzava.name)
+                                        }
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                if Auth.auth().currentUser?.displayName == "Admin" {
+                                    let index = indexSet[indexSet.startIndex]
+                                    Database.database().reference().child("country").child(allList.all[index].name).removeValue()
+                                }
+                                else {
+                                    self.allList.all.removeAll()
+                                    
+                                    Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                                        (snapshot) in
+                                        let CK = snapshot.key as String
+                                        let key = String (CK)
+                                        if let Drzava = snapshot.value as? [String : String],
+                                           let name = Drzava["name"],
+                                           let language = Drzava["language"],
+                                           let capital = Drzava["capital"],
+                                           let continent = Drzava["continent"],
+                                           let tld = Drzava["tld"],
+                                           let flag = Drzava["flag"],
+                                           let lt = Drzava["lt"],
+                                           let ln = Drzava["ln"],
+                                           let poi = Drzava["poi"]
+                                        {
+                                            self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
+                                        }
+                                    }
+                                }
+                            }
+                            .listRowBackground(Color.green.opacity(0.5))
+                        }
+                        Section("North America") {
+                            ForEach(allList.all) { drzava in
+                                if drzava.continent == "North America" {
+                                    NavigationStack {
+                                        /*Text(drzava.name)
+                                         CountryDetailsView*/
+                                        NavigationLink{
+                                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
+                                        } label: {
+                                            Text(drzava.name)
+                                        }
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                if Auth.auth().currentUser?.displayName == "Admin" {
+                                    let index = indexSet[indexSet.startIndex]
+                                    Database.database().reference().child("country").child(allList.all[index].name).removeValue()
+                                }
+                                else {
+                                    self.allList.all.removeAll()
+                                    
+                                    Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                                        (snapshot) in
+                                        let CK = snapshot.key as String
+                                        let key = String (CK)
+                                        if let Drzava = snapshot.value as? [String : String],
+                                           let name = Drzava["name"],
+                                           let language = Drzava["language"],
+                                           let capital = Drzava["capital"],
+                                           let continent = Drzava["continent"],
+                                           let tld = Drzava["tld"],
+                                           let flag = Drzava["flag"],
+                                           let lt = Drzava["lt"],
+                                           let ln = Drzava["ln"],
+                                           let poi = Drzava["poi"]
+                                        {
+                                            self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
+                                        }
+                                    }
+                                }
+                            }
+                            .listRowBackground(Color.orange.opacity(0.5))
+                        }
+                        Section("Oceania") {
+                            ForEach(allList.all) { drzava in
+                                if drzava.continent == "Oceania" {
+                                    NavigationStack {
+                                        /*Text(drzava.name)
+                                         CountryDetailsView*/
+                                        NavigationLink{
+                                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
+                                        } label: {
+                                            Text(drzava.name)
+                                        }
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                if Auth.auth().currentUser?.displayName == "Admin" {
+                                    let index = indexSet[indexSet.startIndex]
+                                    Database.database().reference().child("country").child(allList.all[index].name).removeValue()
+                                }
+                                else {
+                                    self.allList.all.removeAll()
+                                    
+                                    Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                                        (snapshot) in
+                                        let CK = snapshot.key as String
+                                        let key = String (CK)
+                                        if let Drzava = snapshot.value as? [String : String],
+                                           let name = Drzava["name"],
+                                           let language = Drzava["language"],
+                                           let capital = Drzava["capital"],
+                                           let continent = Drzava["continent"],
+                                           let tld = Drzava["tld"],
+                                           let flag = Drzava["flag"],
+                                           let lt = Drzava["lt"],
+                                           let ln = Drzava["ln"],
+                                           let poi = Drzava["poi"]
+                                        {
+                                            self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
+                                        }
+                                    }
+                                }
+                            }
+                            .listRowBackground(Color.blue.opacity(0.5))
+                        }
+                        Section("South America") {
+                            ForEach(allList.all) { drzava in
+                                if drzava.continent == "South America" {
+                                    NavigationStack {
+                                        /*Text(drzava.name)
+                                         CountryDetailsView*/
+                                        NavigationLink{
+                                            CountryDetailsView(selectedN: drzava.name, selectedC: drzava.capital, selectedT: drzava.tld, selectedLt: drzava.lt, selectedLn: drzava.ln, selectedF: drzava.flag, selectedL: drzava.language, selectedP: drzava.poi, pickedC: drzava.continent)
+                                        } label: {
+                                            Text(drzava.name)
+                                        }
+                                    }
+                                }
+                            }
+                            .onDelete { indexSet in
+                                if Auth.auth().currentUser?.displayName == "Admin" {
+                                    let index = indexSet[indexSet.startIndex]
+                                    Database.database().reference().child("country").child(allList.all[index].name).removeValue()
+                                }
+                                else {
+                                    self.allList.all.removeAll()
+                                    
+                                    Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                                        (snapshot) in
+                                        let CK = snapshot.key as String
+                                        let key = String (CK)
+                                        if let Drzava = snapshot.value as? [String : String],
+                                           let name = Drzava["name"],
+                                           let language = Drzava["language"],
+                                           let capital = Drzava["capital"],
+                                           let continent = Drzava["continent"],
+                                           let tld = Drzava["tld"],
+                                           let flag = Drzava["flag"],
+                                           let lt = Drzava["lt"],
+                                           let ln = Drzava["ln"],
+                                           let poi = Drzava["poi"]
+                                        {
+                                            self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
+                                        }
+                                    }
+                                }
+                        }
+                        .listRowBackground(Color.purple.opacity(0.5))
+                    }
+                }
+                .navigationTitle("Countries")
+            }
+            .onAppear {
+                Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
+                    (snapshot) in
+                    let CK = snapshot.key as String
+                    let key = String (CK)
+                    if let Drzava = snapshot.value as? [String : String],
+                       let name = Drzava["name"],
+                       let language = Drzava["language"],
+                       let capital = Drzava["capital"],
+                       let continent = Drzava["continent"],
+                       let tld = Drzava["tld"],
+                       let flag = Drzava["flag"],
+                       let lt = Drzava["lt"],
+                       let ln = Drzava["ln"],
+                       let poi = Drzava["poi"]
+                    {
+                        self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, continent: continent, tld: tld, flag: flag, lt: lt, ln: ln, poi: poi))
                     }
                 }
             }
-            .navigationTitle("Countries")
-        }
-        .onFirstAppear {
-            Database.database().reference().child("country").queryOrderedByKey().observe(DataEventType.childAdded) {
-                (snapshot) in
-                let CK = snapshot.key as String
-                let key = String (CK)
-                if let Drzava = snapshot.value as? [String : String],
-                   let name = Drzava["name"],
-                   let language = Drzava["language"],
-                   let capital = Drzava["capital"],
-                   let tld = Drzava["tld"],
-                   let flag = Drzava["flag"],
-                   let lt = Drzava["lt"],
-                   let ln = Drzava["ln"]
-                {
-                    self.allList.all.append(Country(id: key, name: name, language: language, capital: capital, tld: tld, flag: flag, lt: lt, ln: ln))
-                }
+            .onDisappear {
+                self.allList.all.removeAll()
             }
         }
     }
@@ -79,29 +348,4 @@ struct CountryView: View {
 
 #Preview {
     CountryView()
-}
-
-extension View {
-    func onFirstAppear(_ onFirstAppearAction: @escaping () -> () ) -> some View {
-        return modifier(OnFirstAppearModifier(onFirstAppearAction))
-    }
-}
-
-public struct OnFirstAppearModifier: ViewModifier {
-
-    private let onFirstAppearAction: () -> ()
-    @State private var hasAppeared = false
-    
-    public init(_ onFirstAppearAction: @escaping () -> ()) {
-        self.onFirstAppearAction = onFirstAppearAction
-    }
-    
-    public func body(content: Content) -> some View {
-        content
-            .onAppear {
-                guard !hasAppeared else { return }
-                hasAppeared = true
-                onFirstAppearAction()
-            }
-    }
 }
