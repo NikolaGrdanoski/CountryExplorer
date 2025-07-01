@@ -45,14 +45,17 @@ struct CountryDetailsView: View {
         VStack {
             Button ("Add To Favorites") {
                 let mail = (Auth.auth().currentUser?.email)!
+                var newMail = mail.replacingOccurrences(of: "@", with: "")
+                newMail = newMail.replacingOccurrences(of: ".", with: "")
                 
-                let f : [String : String] = ["name" : selectedN, "language" : selectedL, "tld" : selectedT, "capital" : selectedC, "continent" : pickedC, "flag" : selectedF, "lt" : selectedLt, "ln" : selectedLn, "poi" : selectedP, "email" : mail]
+                let f : [String : String] = ["name" : selectedN, "language" : selectedL, "tld" : selectedT, "capital" : selectedC, "continent" : pickedC, "flag" : selectedF, "lt" : selectedLt, "ln" : selectedLn, "poi" : selectedP, "email" : newMail]
                 
-                Database.database().reference().child("favorites").child(mail).setValue(f)
+                Database.database().reference().child("favorites").child(newMail).setValue(f)
             }
             .buttonStyle(.bordered)
             .buttonBorderShape(.roundedRectangle)
             .background(.green)
+            .foregroundStyle(.white)
             .clipShape(.rect(cornerRadius: 7))
             .padding()
             
@@ -62,7 +65,6 @@ struct CountryDetailsView: View {
                 Text("?")
             }
             .frame(width: 200, height: 125)
-            .padding()
             
             ScrollView {
                 Grid {
@@ -92,7 +94,6 @@ struct CountryDetailsView: View {
                     }
                 }
             }
-            .padding()
             
             Button ("See details") {
                 isPresentWebView = true

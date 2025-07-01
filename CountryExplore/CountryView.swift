@@ -12,6 +12,7 @@ import FirebaseAuth
 struct CountryView: View {
     @State private var isPresented = false
     @State private var isPresenting = false
+    @State private var isPresenting1 = false
     @State var search = ""
     @State var name = ""
     @State var official = ""
@@ -45,7 +46,17 @@ struct CountryView: View {
                 
                 Spacer()
                 
-                NavigationLink("See Favorites", destination: <#T##() -> View#>)
+                NavigationLink(destination: FavoritesView(), isActive: self.$isPresenting1, label: {
+                    Button ("See Favorites") {
+                        isPresenting1 = true
+                    }
+                })
+                .buttonBorderShape(.roundedRectangle)
+                .buttonStyle(.bordered)
+                .background(.blue)
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: 7))
+                .padding()
             }
             
             Spacer()
