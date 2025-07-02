@@ -120,7 +120,7 @@ struct CountryView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.red.opacity(0.5))
+                            .listRowBackground(Color.red.opacity(0.35))
                         }
                         Section("Asia") {
                             ForEach(allList.all) { drzava in
@@ -179,7 +179,7 @@ struct CountryView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.yellow.opacity(0.5))
+                            .listRowBackground(Color.yellow.opacity(0.35))
                         }
                         Section("Europe") {
                             ForEach(allList.all) { drzava in
@@ -238,7 +238,7 @@ struct CountryView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.green.opacity(0.5))
+                            .listRowBackground(Color.green.opacity(0.35))
                         }
                         Section("North America") {
                             ForEach(allList.all) { drzava in
@@ -297,7 +297,7 @@ struct CountryView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.orange.opacity(0.5))
+                            .listRowBackground(Color.orange.opacity(0.35))
                         }
                         Section("Oceania") {
                             ForEach(allList.all) { drzava in
@@ -356,7 +356,7 @@ struct CountryView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.blue.opacity(0.5))
+                            .listRowBackground(Color.blue.opacity(0.35))
                         }
                         Section("South America") {
                             ForEach(allList.all) { drzava in
@@ -415,7 +415,7 @@ struct CountryView: View {
                                     }
                                 }
                         }
-                        .listRowBackground(Color.purple.opacity(0.5))
+                        .listRowBackground(Color.purple.opacity(0.35))
                     }
                 }
                 .navigationTitle("Countries")

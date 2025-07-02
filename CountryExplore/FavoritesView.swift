@@ -43,7 +43,7 @@ struct FavoritesView: View {
                         }
                         .onDelete { indexSet in
                             let index = indexSet[indexSet.startIndex]
-                            Database.database().reference().child("favorites").child(allList.all[index].email).removeValue()
+                            Database.database().reference().child("favorites").child(allList.all[index].id).removeValue()
                         }
                         .listRowBackground(Color.red.opacity(0.5))
                     }
@@ -64,7 +64,7 @@ struct FavoritesView: View {
                         }
                         .onDelete { indexSet in
                             let index = indexSet[indexSet.startIndex]
-                            Database.database().reference().child("favorites").child(allList.all[index].email).removeValue()
+                            Database.database().reference().child("favorites").child(allList.all[index].id).removeValue()
                         }
                         .listRowBackground(Color.yellow.opacity(0.5))
                     }
@@ -85,7 +85,7 @@ struct FavoritesView: View {
                         }
                         .onDelete { indexSet in
                             let index = indexSet[indexSet.startIndex]
-                            Database.database().reference().child("favorites").child(allList.all[index].email).removeValue()
+                            Database.database().reference().child("favorites").child(allList.all[index].id).removeValue()
                         }
                         .listRowBackground(Color.green.opacity(0.5))
                     }
@@ -106,7 +106,7 @@ struct FavoritesView: View {
                         }
                         .onDelete { indexSet in
                             let index = indexSet[indexSet.startIndex]
-                            Database.database().reference().child("favorites").child(allList.all[index].email).removeValue()
+                            Database.database().reference().child("favorites").child(allList.all[index].id).removeValue()
                         }
                         .listRowBackground(Color.orange.opacity(0.5))
                     }
@@ -127,7 +127,7 @@ struct FavoritesView: View {
                         }
                         .onDelete { indexSet in
                             let index = indexSet[indexSet.startIndex]
-                            Database.database().reference().child("favorites").child(allList.all[index].email).removeValue()
+                            Database.database().reference().child("favorites").child(allList.all[index].id).removeValue()
                         }
                         .listRowBackground(Color.blue.opacity(0.5))
                     }
@@ -148,7 +148,7 @@ struct FavoritesView: View {
                         }
                         .onDelete { indexSet in
                             let index = indexSet[indexSet.startIndex]
-                            Database.database().reference().child("favorites").child(allList.all[index].email).removeValue()
+                            Database.database().reference().child("favorites").child(allList.all[index].id).removeValue()
                         }
                         .listRowBackground(Color.purple.opacity(0.5))
                 }

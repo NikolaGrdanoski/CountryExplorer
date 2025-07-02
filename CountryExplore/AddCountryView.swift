@@ -132,7 +132,7 @@ struct AddCountryView: View {
                     
                     NavigationLink(destination: CountryView(), isActive: self.$isPresented, label: {
                         Button("Add") {
-                            if (name.isEmpty || language.isEmpty || capital.isEmpty || continent.isEmpty || tld.isEmpty || flag.isEmpty || lt.isEmpty || ln.isEmpty || poi.isEmpty) {
+                            if (name.isEmpty || language.isEmpty || capital.isEmpty || pickedC.isEmpty || tld.isEmpty || flag.isEmpty || lt.isEmpty || ln.isEmpty || poi.isEmpty) {
                                 alertDisplay = true
                             }
                             else {
